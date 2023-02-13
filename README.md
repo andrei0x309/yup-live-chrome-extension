@@ -4,7 +4,7 @@
 
 ## Features
 
-- Extremely light-weight size less than 1080p picture.
+- Extremely light-weight size is less than 1080p picture.
 - No external dependencies.
 - No production dependencies.
 - No external components.
@@ -15,10 +15,10 @@
 
 ## Pages
 
-- Main page - profile, balance, and website rateing system.
+- Main page - profile, balance, and website rating system.
 - Optional Notifications page - shows notifications.
 - Settings page - change settings.
-- Login page - login or create account using YUP Live website.
+- Login page - login or create an account using the YUP Live website.
 - Usage page - show how many likes you have left and a counter for the next refill.
 - Info page - show info about the extension.
 
@@ -26,10 +26,10 @@
 
 - Chrome notification at login.
 - Light and dark theme.
-- Optinally enable or disable notification system.
-- Opt-in notification for reward.
-- Opt-in notification for refill.
-- Optinally enable a overlay for all websites to easely rate on mobile.
+- Optionally enable or disable the notification system.
+- Opt-in notification setting for reward.
+- Opt-in notification setting at actions refill.
+- Optionally enable an overlay for all websites for an easy rating on mobile.
 
 ## Screenshots
 
