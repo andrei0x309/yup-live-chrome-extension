@@ -1,0 +1,121 @@
+.switches-settings {
+
+    &[data-theme="green"] {
+      --primary-light: hsl(160, 79%, 46%);
+      --primary-dark: hsl(160, 79%, 16%);
+      --ripple: hsla(160, 79%, 46%, .1);
+      --focus: hsl(160, 69%, 46%);
+    }
+    
+    &[data-theme="blue"] {
+      --primary-light: hsl(200, 79%, 46%);
+      --primary-dark: hsl(200, 79%, 16%);
+      --ripple: hsla(200, 79%, 46%, .1);
+      --focus: var(--primary-light);
+    }
+    
+    & {
+      display: flex;
+      align-items: center;
+    
+      margin-top: 0.8rem;
+    }
+    
+    }
+    
+    // main
+    // ==========================================================
+    .switch {
+    
+    &__label {
+      position: relative;
+      cursor: pointer;
+    }
+    
+    &__input {
+      opacity: 0;
+    
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: -1;
+      transform: translate(-50%, -50%);
+    }
+    
+    &__input:focus+&__design {
+      box-shadow: 0 0 0 .1rem var(--global-background), 0 0 0 .2rem var(--focus);
+    }
+    
+    // variables
+    // ----------------------------------------------------
+    & {
+      --width: 2.6rem;
+      --height: 1.4rem;
+    
+      --background: hsl(0, 0%, 30%);
+      --checked-background: var(--primary-dark);
+
+      --thumb-size: 0.9rem;
+      --thumb-ripple-color: var(--ripple);
+      --thumb-background: hsl(0, 0%, 65%);
+      --checked-thumb-background: var(--primary-light);
+      --thumb-space-between-edges: .6rem;
+      --thumb-out: var(--thumb-space-between-edges);
+    }
+    
+    
+    &--4 {
+      --border: 1px solid hsl(0, 0%, 60%);
+      --background: transparent;
+    }
+    
+    
+    // appearance
+    // ----------------------------------------------------
+    &__design {
+      display: inline-block;
+    
+      width: var(--width);
+      height: var(--height);
+      border: var(--border);
+      border-radius: 100rem;
+    
+      background: var(--background);
+      position: relative;
+    
+      transition: .2s, box-shadow 0s;
+    }
+    
+    &__design::before {
+      content: '';
+    
+      position: absolute;
+      left: var(--thumb-out);
+      top: 50%;
+      transform: translateY(-50%);
+    
+      width: var(--thumb-size);
+      height: var(--thumb-size);
+      border-radius: 100rem;
+    
+      background: var(--thumb-background);
+    
+      transition: inherit;
+    }
+    
+    
+    // states
+    // ----------------------------------------------------
+    &__input:checked+&__design {
+      border-color: transparent;
+      background: var(--checked-background);
+    }
+    
+    &__input:checked+&__design::before {
+      left: calc(100% - (var(--thumb-size) + var(--thumb-out)));
+      background: var(--checked-thumb-background);
+    }
+    
+    
+    }
+    

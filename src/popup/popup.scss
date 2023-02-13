@@ -1,0 +1,158 @@
+::-webkit-scrollbar{
+  height: 7px;
+  width: 7px;
+  background: #747474;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(34, 34, 34);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:horizontal{
+  background: rgb(34, 34, 34);
+  border-radius: 4px;
+}
+
+html{
+  scrollbar-width: thin;
+  scroll-behavior: smooth;
+}
+
+@font-face {
+    @font-face {
+        font-family: 'Crete Round';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url('../assets//fonts/55xoey1sJNPjPiv1ZZZrxK110b3wKg.woff2') format('woff2');
+        unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+      }
+}
+
+.main-section {
+  width: 252px;
+  margin: auto;
+}
+
+body {
+    margin: 0;
+    font-family: 'Crete Round', serif;
+}
+
+a {
+    color: #e4edff;
+    font-weight: 300;
+    letter-spacing: 0.1rem;
+    transition: color 0.5s ease-in-out;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #eeb845;
+}
+
+
+.svg-fill {
+    fill: #e4edff;
+    transition: fill 0.5s ease-in-out;
+  }
+  
+  .svg-fill:hover {
+    fill: #eeb845;
+  }
+  
+  .gradient-text {
+    background-color: #ca4246;
+    background-image: linear-gradient(
+      45deg,
+      #ca4246 16.666%,
+      #e16541 16.666%,
+      #e16541 33.333%,
+      #f18f43 33.333%,
+      #f18f43 50%,
+      #8b9862 50%,
+      #8b9862 66.666%,
+      #476098 66.666%,
+      #476098 83.333%,
+      #a7489b 83.333%
+    );
+  
+    background-size: 100%;
+    background-repeat: repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rainbow-text-simple-animation-rev 0.75s ease forwards;
+  }
+  
+  .gradient-text:hover {
+    animation: rainbow-text-simple-animation 0.5s ease-in forwards;
+  }
+  
+  @keyframes rainbow-text-simple-animation-rev {
+    0% {
+      background-size: 650%;
+    }
+    40% {
+      background-size: 650%;
+    }
+    100% {
+      background-size: 100%;
+    }
+  }
+  
+  @keyframes rainbow-text-simple-animation {
+    0% {
+      background-size: 100%;
+    }
+    80% {
+      background-size: 650%;
+    }
+    100% {
+      background-size: 650%;
+    }
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes spin-reverse {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(-360deg);
+    }
+  }
+  
+  h1 {
+    font-weight: normal;
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 0;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
+  }
+  
+  .interactive-svg {
+    cursor: pointer;
+   }
+   
+   .interactive-svg:hover {
+    transform: scale(1.2);
+    transition: 0.2s;
+   }
+  
+   .interactive-svg:active {
+      transform: scale(1.1);
+      transition: 0.2s;
+    }

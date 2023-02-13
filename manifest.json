@@ -1,0 +1,58 @@
+{
+    "name": "yup live",
+    "description": "Light alternative extension for yup protocol",
+    "version": "1.0.1",
+    "manifest_version": 3,
+    "icons": {
+        "16": "src/assets/icons/yup_ext_16.png",
+        "32": "src/assets/icons/yup_ext_32.png",
+        "48": "src/assets/icons/yup_ext_48.png",
+        "64": "src/assets/icons/yup_ext_64.png",
+        "128": "src/assets/icons/yup_ext_128.png",
+        "258": "src/assets/icons/yup_ext_256.png"
+    },
+    "background": {
+        "service_worker": "src/background/index.ts"
+    },
+    "action": {
+        "default_popup": "src/popup/popup.html",
+        "default_icon": {
+            "16": "src/assets/icons/yup_ext_16.png",
+            "32": "src/assets/icons/yup_ext_32.png",
+            "48": "src/assets/icons/yup_ext_48.png",
+            "64": "src/assets/icons/yup_ext_64.png",
+            "128": "src/assets/icons/yup_ext_128.png",
+            "258": "src/assets/icons/yup_ext_256.png"
+        }
+    },
+    "content_scripts": [
+        {
+          "matches": [
+            "http://*/*",
+            "https://*/*"
+          ],
+          "all_frames": true,
+          "run_at": "document_start",
+          "js": ["src/client/content.ts"]
+        }
+      ],
+      "web_accessible_resources": [{
+        "resources": [
+            "src/client/inject.js",
+            "src/assets/icons/yup_ext_32.png",
+            "src/assets/icons/yup_ext_48.png",
+            "src/assets/icons/yup_ext_64.png",
+            "src/assets/icons/yup_ext_128.png",
+            "src/assets/res/reward_optimized.png"
+        ],
+        "matches": ["<all_urls>"]
+      }],
+    "permissions": [
+    "storage", 
+    "management", 
+    "notifications", 
+    "tabs",
+    "clipboardWrite",
+    "alarms"
+  ]
+}

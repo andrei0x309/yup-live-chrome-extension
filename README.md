@@ -1,0 +1,47 @@
+# YUP Live Chrome Extension
+
+> Svelte open source helper extension for YUP protocol, a decentralized social media platform.
+
+## Features
+
+- Extremely light-weight size less than 1080p picture.
+- No external dependencies.
+- No production dependencies.
+- No external components.
+- Made with Svelte & WindiCSS & TypeScript & Vite.
+- Everything loaded asynchronously.
+- Inhouse router system.
+- Automatically detects and disables other YUP chrome extensions.
+
+## Pages
+
+- Main page - profile, balance, and website rateing system.
+- Optional Notifications page - shows notifications.
+- Settings page - change settings.
+- Login page - login or create account using YUP Live website.
+- Usage page - show how many likes you have left and a counter for the next refill.
+- Info page - show info about the extension.
+
+## Additional features
+
+- Chrome notification at login.
+- Light and dark theme.
+- Optinally enable or disable notification system.
+- Opt-in notification for reward.
+- Opt-in notification for refill.
+- Optinally enable a overlay for all websites to easely rate on mobile.
+
+## Screenshots
+
+![Screenshot 1](/misc/screen_1.png?raw=true "Screenshot 1")
+![Screenshot 2](/misc/screen_2.png?raw=true "Screenshot 2")
+
+## Possible ways to contribute
+
+- Install and use the extension.
+- Fork the repository.
+- Open a pull request.
+- Open an issue.
+- Rate the extension.
+- Star the repository.
+- Share the extension.
