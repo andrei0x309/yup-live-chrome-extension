@@ -95,7 +95,7 @@ export const setNotifStorageNotifs = async (notifs: any[]) => {
 
 export const setNotifStorageLastRewardNotif = async (lastRewardNotif) => {
     const notifsStorage = await getNotifStorage()
-    await chrome.storage.local.set({ ...notifsStorage, lastRewardNotif: lastRewardNotif })
+    await chrome.storage.local.set({ ...notifsStorage, ...{ notifs: { lastRewardNotif } } })
 }
 
 export const setAuth = async (auth) => {

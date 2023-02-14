@@ -83,9 +83,11 @@ const alarmHandler = async () => {
 
                 if (store.settings?.chromeNotifWhenAbleToVote) {
                     const lastReset = (await getActionUsage(store?.user?.auth?.userId))?.data?.lastReset
+                    const storeTs = store?.settings?.refilNotifTimestamp ?? 0
+
                     if (lastReset) {
                         const isReset = getTimeRemaining(lastReset).total <= 0;
-                        if (!closeTo(new Date(lastReset), new Date(store?.settings?.refilNotifTimestamp), 3.6e6) && isReset) {
+                        if (!closeTo(new Date(lastReset), new Date(storeTs), 36e5) && isReset) {
                             updateSettings.refilNotifTimestamp = lastReset
                             chrome.notifications.create({
                                 type: 'basic',

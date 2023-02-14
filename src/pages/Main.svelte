@@ -1,11 +1,8 @@
 <script lang="ts">
-  // import { storage } from "@/storage";
   import { extrenalNavigate } from "@/utils/chrome-misc";
   import ImgLoader from "@/components/ImgLoader.svelte";
   import { onMount } from "svelte";
-  // https://yup-live.pages.dev
   import { APP_BASE } from "@/constants/config";
-  import type { StorageType } from "@/utils/storage";
   import RateWebsite from "@/components/RateWebsite.svelte";
   import { mainStore } from "@/utils/store";
   import { formatNumber, truncteEVMAddr } from "@/utils/misc";
@@ -85,7 +82,7 @@
         <span class="text-[0.6rem] mt-4 -ml-1">{handle.length >= 12 ? handle.slice(0, 10) + "..." : handle}</span>
       {/if}
     </div>
-    <div on:click={() => extrenalNavigate(`${APP_BASE}/profile/${$mainStore.user.auth.userId}`)} aria-hidden class="flex flex-col w-16 mt-1 ml-4 px-2 py-3 link">
+    <div on:click={() => extrenalNavigate(`${APP_BASE}/raw-influence/${$mainStore.user.auth.userId}`)} aria-hidden class="flex flex-col w-16 mt-1 ml-4 px-2 py-3 link">
       <span class="text-[0.6rem] mb-2">Influence</span><span class="text-[0.95rem] mb-2"
         >{$mainStore?.user?.profile?.yup?.weight}</span
       ><span class="text-[0.7rem]">10<br />MAX</span>
