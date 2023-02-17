@@ -98,7 +98,7 @@ onMount(async () => {
          </div>
 
          <div class="switch switch--4 text-[0.8rem] flex flex-col mb-4">
-            <span class="inline-block">Browser notification actions refill</span>
+            <span class="inline-block">Auto-refill Actions if online</span>
               <label class="switch__label mt-2">
                 <input on:click={() => setSettingsLocal('chromeNotifWhenAbleToVote')} type="checkbox" class="switch__input"
                 checked={settings.chromeNotifWhenAbleToVote}

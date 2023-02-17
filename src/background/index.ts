@@ -60,6 +60,7 @@ const alarmHandler = async () => {
                     setBadge('')
                     updateSettings.hasNewNotifications = false
                 }
+                setSettings(updateSettings).catch(console.error)
 
                 if (store.settings?.chromeNotifWhenReward && notSeen.some(notif => notif.action === 'reward')) {
                     const rewardNotif = notSeen.find(notif => notif.action === 'reward')
@@ -82,23 +83,9 @@ const alarmHandler = async () => {
                 }
 
                 if (store.settings?.chromeNotifWhenAbleToVote) {
-                    const lastReset = (await getActionUsage(store?.user?.auth?.userId))?.data?.lastReset
-                    const storeTs = store?.settings?.refilNotifTimestamp ?? 0
-
-                    if (lastReset) {
-                        const isReset = getTimeRemaining(lastReset).total <= 0;
-                        if (!closeTo(new Date(lastReset), new Date(storeTs), 36e5) && isReset) {
-                            updateSettings.refilNotifTimestamp = lastReset
-                            chrome.notifications.create({
-                                type: 'basic',
-                                iconUrl: chrome.runtime.getURL('src/assets/icons/yup_ext_128.png'),
-                                title: 'Yup Live Extension',
-                                message: `You can curate now again`,
-                            })
-                        }
-                    }
+                    await getActionUsage(store?.user?.auth?.userId)
                 }
-                setSettings(updateSettings).catch(console.error)
+                
             } catch (error) {
                 console.error('Error fetching notifications', error)
             }

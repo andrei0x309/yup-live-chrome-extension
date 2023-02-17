@@ -131,7 +131,7 @@
   .logo {
     left: 0rem;
     top: -0.8rem;
-    width: 100%;
+    width: 250px;
     box-shadow: inset 3px -3px 6rem 11px #0000005e;
     border-bottom: 1px solid #d3d9df63;
   }

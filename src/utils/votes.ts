@@ -71,11 +71,11 @@ export const executeVote = async ({
     } else {
       const err = await req.text()
       if (err.includes('limit')) {
-          $alertStore?.show('Rating limit consumed!!!', 'warning')
+          $alertStore?.show('Rating limit reached!!!', 'warning')
       } else if(err.includes('requests')) {
-          $alertStore?.show('You have made too many request try aagin after 24h', 'warning')
+          $alertStore?.show('You have made too many request try again after 24h', 'warning')
       } else if(err.toLocaleLowerCase().includes('unauthorized')) {
-          $alertStore?.show('Seem your auth token is not valid anymore re-login!!', 'error')
+          $alertStore?.show('Seems your auth token is not valid anymore re-login!!', 'error')
       } else {
           $alertStore?.show('Vote not submited due to error try to re-login!', 'error')
       }
