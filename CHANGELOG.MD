@@ -4,10 +4,10 @@
 
 - change some user error messages
 - case detection if there's no active tab
-- always show rating website even if tab is not active
-- change header to fixed size to not overflow if extension is installed on a mobile device
+- always show rating website even if the tab is not active
+- change the header to a fixed size to not overflow if the extension is installed on a mobile device: Ex: Kivi/Yandex
 - added link to mobile APP version of yup live
-- replaced seting for notification when refil to auto refill if you are online
+- replaced setting for notification when refill to auto refill if you are online
 
 ## [Version 1.0.2]
 
