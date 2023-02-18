@@ -61,7 +61,9 @@ $: {
     </div>
     {/if}
 
-    <RateSingle url={url.href.replace(/\/$/gms, '') ?? ''} disabled={!isValid} />
+    {#key url.href}
+        <RateSingle url={url.href.replace(/\/$/gms, '') ?? ''} disabled={!isValid} />
+    {/key}
 </div>
 
 <style>

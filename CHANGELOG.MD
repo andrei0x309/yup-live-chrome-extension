@@ -1,5 +1,9 @@
 # Change Log
 
+## [Version 1.0.4]
+
+- fix: add missing key
+  
 ## [Version 1.0.3]
 
 - change some user error messages
