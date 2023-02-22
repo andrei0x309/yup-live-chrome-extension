@@ -1,11 +1,11 @@
 import { SEND_AUTH_NOTIF } from '@/constants/messeges';
 import { initStorage } from '@/utils/storage'
-import { getStore, setProfile, setNotifStorageNotifs, setSettings, getNotifStorage, setNotifStorageLastRewardNotif } from '@/utils/storage'
+import { getStore, setProfile, setNotifStorageNotifs, setSettings, setNotifStorageLastRewardNotif, getNotifStorageLastRewardNotif } from '@/utils/storage'
 import type { Notification } from '@/utils/types';
 import { API_BASE } from '@/constants/config';
 import { getNotifications } from '@/utils/notifications';
 import { setBadge } from '@/utils/chrome-misc'
-import { closeTo, getTimeRemaining } from '@/utils/time';
+import { closeTo } from '@/utils/time';
 import { getActionUsage } from '@/utils/user';
 // Disable conflict with yup extension
 const yupExtensionId = 'nhmeoaahigiljjdkoagafdccikgojjoi'
@@ -65,18 +65,19 @@ const alarmHandler = async () => {
                 if (store.settings?.chromeNotifWhenReward && notSeen.some(notif => notif.action === 'reward')) {
                     const rewardNotif = notSeen.find(notif => notif.action === 'reward')
                     if (rewardNotif) {
-                        const storeReward = (await getNotifStorage()).lastRewardNotif
-                        if (!storeReward || (storeReward.id !== rewardNotif._id &&
-                            !closeTo(new Date(storeReward.createdAt), new Date(rewardNotif.createdAt), 2e4))) {
+                        const storeReward = (await getNotifStorageLastRewardNotif())
+
+                        if (!storeReward || (storeReward.id !== rewardNotif._id 
+                            && !closeTo(new Date(storeReward.createdAt), new Date(rewardNotif.createdAt), 2e4)
+                            )) {
                             {
-                                setNotifStorageLastRewardNotif({ createdAt: rewardNotif.createdAt, id: rewardNotif._id }).then(() => {
-                                    chrome.notifications.create({
+                                    await setNotifStorageLastRewardNotif({ createdAt: rewardNotif.createdAt, id: rewardNotif._id });
+                                    await chrome.notifications.create({
                                         type: 'basic',
                                         iconUrl: chrome.runtime.getURL('src/assets/icons/yup_ext_128.png'),
                                         title: 'Yup Live Extension',
                                         message: `You have been alocated a future reward of ${rewardNotif.quantity} YUP`,
                                     })
-                                }).catch(console.error)
                             }
                         }
                     }

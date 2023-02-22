@@ -51,12 +51,15 @@ export const storageDefault = {
 }
 
 export const storageNotifsDefault =  {
-    lastRewardNotif: {
-        createdAt: 0,
-        id: '',
-    },
     notifs: []
 }
+
+export const lastRewardNotifDefault = {
+        createdAt: 0,
+        id: '',
+    }
+
+
 
 export type StorageType = typeof storageDefault
 
@@ -75,11 +78,14 @@ export const initStorage = async () => {
         console.info('Storage initialized')
     }
     const notifs = await chrome.storage.local.get('notifs')
-    const updateNotifs = { ...storageNotifsDefault, ...notifs }
-    const updateNotifsCondition = !notifs.notifs || !notifs.lastRewardNotif
-    if(updateNotifsCondition) {
-        await chrome.storage.local.set({ notifs: updateNotifs })
+    const lastRewardNotif = await chrome.storage.local.get('lastRewardNotif')
+    if(!notifs.notifs) {
+        await chrome.storage.local.set({ notifs: storageNotifsDefault  })
         console.info('Notifs storage initialized')
+    }
+    if(!lastRewardNotif.lastRewardNotif) {
+        await chrome.storage.local.set({ lastRewardNotif: lastRewardNotifDefault })
+        console.info('Last reward notif storage initialized')
     }
 }
 
@@ -93,9 +99,14 @@ export const setNotifStorageNotifs = async (notifs: any[]) => {
     await chrome.storage.local.set({ ...notifsStorage, notifs: notifs })
 }
 
+export const getNotifStorageLastRewardNotif = async () => {
+    const notifsStorage = await chrome.storage.local.get('lastRewardNotif')
+    return notifsStorage ? notifsStorage.lastRewardNotif : lastRewardNotifDefault
+}
+
 export const setNotifStorageLastRewardNotif = async (lastRewardNotif) => {
-    const notifsStorage = await getNotifStorage()
-    await chrome.storage.local.set({ ...notifsStorage, ...{ notifs: { lastRewardNotif } } })
+    const lastReward = await getNotifStorageLastRewardNotif()
+    chrome.storage.local.set({ lastRewardNotif: { ...lastReward, ...lastRewardNotif } })
 }
 
 export const setAuth = async (auth) => {
