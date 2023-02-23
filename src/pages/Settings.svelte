@@ -7,7 +7,8 @@ import { navigate } from "@/utils/router";
 import { storageDefault } from '@/utils/storage'
 import { onMount } from "svelte";
 import PageLoader from "@/components/PageLoader.svelte";
-import { clearBadge, reloadExtension } from '@/utils/chrome-misc';
+import { clearBadge, reloadExtension, sendSWMessage } from '@/utils/chrome-misc';
+import { DISABLE_RIGHT_CLICK, ENABLE_RIGHT_CLICK } from '@/constants/messeges'
 
 let settings: typeof $mainStore['settings']  = null;
 let settingLoading = false;
@@ -29,6 +30,16 @@ const setSettingsLocal = async (setting: string, value = '') => {
     }
     settings = $mainStore.settings;
     await setSettings($mainStore.settings);
+    switch(setting) {
+        case 'enableRightClick':
+            if($mainStore.settings[setting]) {
+                await sendSWMessage({type: ENABLE_RIGHT_CLICK })
+                break;
+            }
+            await sendSWMessage({type: DISABLE_RIGHT_CLICK })
+         break;
+    }
+
     settingLoading = false;
 };
 
@@ -106,6 +117,26 @@ onMount(async () => {
                 <span class="switch__design"></span>
               </label>
          </div>
+
+         <div class="switch switch--4 text-[0.8rem] flex flex-col mb-4">
+          <span class="inline-block">Enable Right Click rating on page</span>
+            <label class="switch__label mt-2">
+              <input on:click={() => setSettingsLocal('enableRightClick')} type="checkbox" class="switch__input"
+              checked={settings.enableRightClick}
+              >
+              <span class="switch__design"></span>
+            </label>
+        </div>
+
+        <div class="switch switch--4 text-[0.8rem] flex flex-col mb-4">
+          <span class="inline-block">Browser notification if right click rating succeeded</span>
+            <label class="switch__label mt-2">
+              <input on:click={() => setSettingsLocal('enableRightClickNotif')} type="checkbox" class="switch__input"
+              checked={settings.enableRightClickNotif}
+              >
+              <span class="switch__design"></span>
+            </label>
+        </div>
 
     </div>
   </section>

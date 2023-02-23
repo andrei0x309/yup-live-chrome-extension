@@ -22,13 +22,13 @@
     if (event.source != window)
         return;
         if(allowedEvents.includes(event?.data?.type ?? '')){
-          console.log('Yup Live Extension received message:', event.data);
+          // console.log('Yup Live Extension received message:', event.data);
           switch (event.data.type) {
             case SEND_VOTE:
-              console.log('SEND_VOTE', event.data.payload)
+              // console.log('SEND_VOTE', event.data.payload)
               break;
             case SET_AUTH:
-              console.log('SET_AUTH', event.data.payload)
+              // console.log('SET_AUTH', event.data.payload)
               setAuth(event.data.payload).catch(console.error)
               break;
             default:

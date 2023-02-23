@@ -47,6 +47,8 @@ export const storageDefault = {
         coinGeckoPrice: 0,
         hasNewNotifications: false,
         refilNotifTimestamp: 0,
+        enableRightClick: false,
+        enableRightClickNotif: false,
     }
 }
 

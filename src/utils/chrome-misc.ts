@@ -35,3 +35,11 @@ export const getExtensionVersion = () => {
 export const reloadExtension = () => {
     chrome.runtime.reload()
 }
+
+export const sendSWMessage = (message: {type: string, [key: string]: any}) => {
+    return new Promise((resolve) => {
+        chrome.runtime.sendMessage(message, (response) => {
+            resolve(response)
+        })
+    })
+}

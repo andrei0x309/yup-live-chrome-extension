@@ -2,7 +2,7 @@
     import Alert from "@/components/Alert.svelte";
     import '@/overlay/overlay.scss'
     import { getStore } from "@/utils/storage";
-    import { executeVote } from "@/utils/votes";
+    import { executeVote, getVotePayload } from "@/utils/votes";
 
     let alert
     let loading = false
@@ -11,18 +11,13 @@
         if(loading) return
         loading = true
         const store = await getStore()
-        const payload  ={
-            userVote: {
-                like: type,
-                rating: 1
-            },
-            post: '',
-            url: document.location.href.replace(/\/$/gms, ''),
-            $mainStore: store,
-            $alertStore: null
-        }
-        const vote = await executeVote(payload)
-        console.log(vote)
+
+        const vote = await executeVote(getVotePayload({
+            store,
+            url: document.location.href,
+            type
+        }))
+
         if (vote?._id){
             alert.show(type ? 'Liked' : 'Disliked', 'success')
         } else {

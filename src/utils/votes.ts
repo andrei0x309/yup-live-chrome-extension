@@ -1,5 +1,6 @@
 import type { Vote } from './types'
 import { fetchWAuth } from './auth'
+import type { StorageType  } from './storage'
 
 const API_BASE = 'https://api.yup.io'
 
@@ -82,3 +83,22 @@ export const executeVote = async ({
       return null
     }
   }
+
+  export const getVotePayload = ({
+    url, store, type
+  }: {
+    url: string,
+    store: StorageType,
+    type: boolean
+  }) => {
+    return {
+      userVote: {
+          like: type,
+          rating: 1
+      },
+      post: '',
+      url: (url || '').replace(/\/$/gms, ''),
+      $mainStore: store,
+      $alertStore: null
+  }
+}

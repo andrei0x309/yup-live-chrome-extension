@@ -1,4 +1,4 @@
-import { SEND_AUTH_NOTIF } from '@/constants/messeges';
+import { SEND_AUTH_NOTIF, ENABLE_RIGHT_CLICK, DISABLE_RIGHT_CLICK } from '@/constants/messeges';
 import { initStorage } from '@/utils/storage'
 import { getStore, setProfile, setNotifStorageNotifs, setSettings, setNotifStorageLastRewardNotif, getNotifStorageLastRewardNotif } from '@/utils/storage'
 import type { Notification } from '@/utils/types';
@@ -7,10 +7,64 @@ import { getNotifications } from '@/utils/notifications';
 import { setBadge } from '@/utils/chrome-misc'
 import { closeTo } from '@/utils/time';
 import { getActionUsage } from '@/utils/user';
+import { executeVote, getVotePayload } from '@/utils/votes';
+
 // Disable conflict with yup extension
 const yupExtensionId = 'nhmeoaahigiljjdkoagafdccikgojjoi'
 
 console.info('Service worker started')
+
+
+const onRightClickLike = async (store, info, tab) => {
+        const vote = await executeVote(getVotePayload({
+            store,
+            url: tab.url,
+            type: true
+        }))
+        if (store?.settings?.enableRightClickNotif) {
+            if (vote?._id) {
+                await chrome.notifications.create({
+                    type: 'basic',
+                    iconUrl: chrome.runtime.getURL('src/assets/icons/yup_ext_128.png'),
+                    title: 'Yup Live Extension',
+                    message: `Your rating has been submitted`,
+                })
+            } else {
+                await chrome.notifications.create({
+                    type: 'basic',
+                    iconUrl: chrome.runtime.getURL('src/assets/icons/yup_ext_128.png'),
+                    title: 'Yup Live Extension',
+                    message: `There was an error submitting your rating`,
+                })
+            }
+        }
+}
+
+const enableRightClickVote = async () => {
+    try {
+        await chrome.contextMenus.create({
+            id: "yup-like",
+            title: "Like this page",
+            contexts: ["page", "page_action"],
+        });
+    } catch (error) {
+        // ignore
+    }
+    if(chrome.runtime.lastError) {
+        console.warn('Error creating context menu', chrome.runtime.lastError.message)
+    }
+}
+
+const disableRightClickVote = async () => {
+    try {
+        await chrome.contextMenus.remove("yup-like");
+    } catch (error) {
+        // ignore
+    }
+    if(chrome.runtime.lastError) {
+        console.warn('Error creating context menu', chrome.runtime.lastError.message)
+    }
+}
 
 const alarmHandler = async () => {
     const store = await getStore()
@@ -67,17 +121,17 @@ const alarmHandler = async () => {
                     if (rewardNotif) {
                         const storeReward = (await getNotifStorageLastRewardNotif())
 
-                        if (!storeReward || (storeReward.id !== rewardNotif._id 
+                        if (!storeReward || (storeReward.id !== rewardNotif._id
                             && !closeTo(new Date(storeReward.createdAt), new Date(rewardNotif.createdAt), 2e4)
-                            )) {
+                        )) {
                             {
-                                    await setNotifStorageLastRewardNotif({ createdAt: rewardNotif.createdAt, id: rewardNotif._id });
-                                    await chrome.notifications.create({
-                                        type: 'basic',
-                                        iconUrl: chrome.runtime.getURL('src/assets/icons/yup_ext_128.png'),
-                                        title: 'Yup Live Extension',
-                                        message: `You have been alocated a future reward of ${rewardNotif.quantity} YUP`,
-                                    })
+                                await setNotifStorageLastRewardNotif({ createdAt: rewardNotif.createdAt, id: rewardNotif._id });
+                                await chrome.notifications.create({
+                                    type: 'basic',
+                                    iconUrl: chrome.runtime.getURL('src/assets/icons/yup_ext_128.png'),
+                                    title: 'Yup Live Extension',
+                                    message: `You have been alocated a future reward of ${rewardNotif.quantity} YUP`,
+                                })
                             }
                         }
                     }
@@ -86,9 +140,10 @@ const alarmHandler = async () => {
                 if (store.settings?.chromeNotifWhenAbleToVote) {
                     await getActionUsage(store?.user?.auth?.userId)
                 }
-                
+
             } catch (error) {
-                console.error('Error fetching notifications', error)
+                // console.error('Error fetching notifications', error)
+                // ignore
             }
         }
 
@@ -104,19 +159,36 @@ chrome.alarms.create(
 
 chrome.alarms.onAlarm.addListener(alarmHandler)
 
-chrome.runtime.onInstalled.addListener(() => {
+chrome.runtime.onInstalled.addListener(async () => {
     initStorage()
     chrome.management.setEnabled(yupExtensionId, false)
+    const store = await getStore()
+    if (store?.user?.auth?.authToken && store?.settings?.enableRightClick) {
+            enableRightClickVote()
+    }
 });
 
-chrome.runtime.onStartup.addListener(() => {
+chrome.runtime.onStartup.addListener(async () => {
     initStorage()
     chrome.management.setEnabled(yupExtensionId, false)
+    const store = await getStore()
+    if (store?.user?.auth?.authToken && store?.settings?.enableRightClick) {
+            enableRightClickVote()
+    }
 })
 
-
+chrome.contextMenus.onClicked.addListener(async (info, tab) => {
+    if (info.menuItemId === 'yup-like') {
+        const store = await getStore()
+        if (store?.user?.auth?.authToken) {
+            onRightClickLike(store, info, tab)
+        }
+    }
+})
+            
 chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
     try {
+        console.log('Message received', request)
         if (request.type === SEND_AUTH_NOTIF) {
             chrome.notifications.create({
                 type: 'basic',
@@ -124,11 +196,17 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
                 title: 'Yup Live Extension',
                 message: 'You have been logged in.',
             })
+            sendResponse({ success: true })
+        } else if (request.type === ENABLE_RIGHT_CLICK) {
+            await enableRightClickVote()
+            sendResponse({ success: true })
+        } else if (request.type === DISABLE_RIGHT_CLICK) {
+            await disableRightClickVote()
+            sendResponse({ success: true })
         }
     } catch (error) {
         console.error('Error in message listener', error)
         sendResponse({ error })
     }
-
     return true
 })

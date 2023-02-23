@@ -1,7 +1,7 @@
 {
     "name": "yup live",
     "description": "Light alternative extension for yup protocol",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "manifest_version": 3,
     "icons": {
         "16": "src/assets/icons/yup_ext_16.png",
@@ -53,6 +53,7 @@
     "notifications", 
     "tabs",
     "clipboardWrite",
-    "alarms"
+    "alarms",
+    "contextMenus"
   ]
 }

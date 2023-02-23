@@ -1,5 +1,12 @@
 # Change Log
 
+## [Version 1.0.5]
+
+- added: `setting` to enable right click page context like at user suggestion
+- added: `setting` to enable chrome notification on like success/fail from right click context
+- refactor: track for reward notification
+- disabled: some logs
+
 ## [Version 1.0.4]
 
 - fix: add missing key
