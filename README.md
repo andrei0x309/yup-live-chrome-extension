@@ -2,6 +2,8 @@
 
 > Svelte open source helper extension for YUP protocol, a decentralized social media platform.
 
+Chrome Store link [https://chrome.google.com/webstore/detail/yup-live/ljoghhmlndknifghijohbmciobhaibhc](https://chrome.google.com/webstore/detail/yup-live/ljoghhmlndknifghijohbmciobhaibhc)
+
 ## Features
 
 - Extremely light-weight size is less than 1080p picture.
