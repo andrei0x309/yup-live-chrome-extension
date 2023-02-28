@@ -42,6 +42,7 @@ const onRightClickLike = async (store, info, tab) => {
 
 const enableRightClickVote = async () => {
     try {
+        await chrome.contextMenus.removeAll();
         await chrome.contextMenus.create({
             id: "yup-like",
             title: "Like this page",
@@ -49,9 +50,6 @@ const enableRightClickVote = async () => {
         });
     } catch (error) {
         // ignore
-    }
-    if(chrome.runtime.lastError) {
-        console.warn('Error creating context menu', chrome.runtime.lastError.message)
     }
 }
 
