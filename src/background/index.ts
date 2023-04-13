@@ -71,7 +71,7 @@ const alarmHandler = async () => {
         requests.profile = fetch(`${API_BASE}/web3-profiles/` + store.user.auth.address)
         if (store?.settings.notificationsEnabled) {
             requests.notifications = getNotifications({
-                type: 'all',
+                type: null,
                 limit: '15',
                 skip: '0',
                 userId: store.user.auth.userId

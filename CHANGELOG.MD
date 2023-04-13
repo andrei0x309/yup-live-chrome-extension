@@ -2,6 +2,10 @@
 
 ## [Version 1.0.6]
 
+- fixed background notification
+  
+## [Version 1.0.6]
+
 - refactored notifications 
 - added support for aggregated notifications
 - added support for follow notification
