@@ -1,5 +1,11 @@
 # Change Log
 
+## [Version 1.0.6]
+
+- refactored notifications 
+- added support for aggregated notifications
+- added support for follow notification
+
 ## [Version 1.0.5]
 
 - added: `setting` to enable right click page context like at user suggestion

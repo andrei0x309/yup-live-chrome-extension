@@ -12,7 +12,7 @@ let loading = true;
 let noNotifications = false;
 let notifs = [];
 let pastNotifsPromise
-let type = 'all'
+let type = null
 
 onMount(async () => {
     notifs = await getNotifications({
@@ -35,13 +35,9 @@ onMount(async () => {
 
 });
 
-const changeNotifsType = async (t :string) => {
-     if(type === t) return;
-     if(!['all', 'rewards'].includes(t)){
-            console.error('Invalid type');
-            return;
-     }
-    type = t;
+const changeNotifsType = async (t : string[] | null) => {
+     if(String(type) === String(t)) return;
+    type = t
     loading = true;
     notifs = await getNotifications({
         userId: $mainStore.user.auth.userId,
@@ -71,8 +67,8 @@ const changeNotifsType = async (t :string) => {
     {/await}
 {:else}
     <div class="text-[0.75rem] py-1">
-        <span on:click={() => changeNotifsType('all')} aria-hidden class="inline-block mr-2 interactive-svg text-blue-200 interactive-svg" >All</span>
-        <span on:click={() => changeNotifsType('rewards')} aria-hidden class="text-blue-200 interactive-svg interactive-svg text-blue-200 interactive-svg">Rewards</span>
+        <span on:click={() => changeNotifsType(null)} aria-hidden class="inline-block mr-2 interactive-svg text-blue-200 interactive-svg" >All</span>
+        <span on:click={() => changeNotifsType(['reward'])} aria-hidden class="text-blue-200 interactive-svg interactive-svg text-blue-200 interactive-svg">Rewards</span>
     </div>
     <div class="flex flex-col">
         {#each notifs.reverse() as notif}

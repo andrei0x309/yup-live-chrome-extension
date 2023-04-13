@@ -27,6 +27,12 @@ export interface Vote {
       title: string
       tag: string
     }
+    EVMRecipient: {
+      handle: string
+      address: string
+      avatar: string
+    }
+    notifications: Notification[]
     seen: boolean
     postid: string
     rating: number
@@ -35,4 +41,5 @@ export interface Vote {
     createdAt: string
     quantity?: string
     message?: string
+    VoterHandle: string
   }

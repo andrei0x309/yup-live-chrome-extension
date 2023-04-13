@@ -67,7 +67,7 @@ export const executeVote = async ({
       body: JSON.stringify(body)
     })
     if (req.ok) {
-      noVoteAlert || $alertStore?.show('Rating submited!')
+      noVoteAlert || $alertStore?.show('Rating submitted!')
       return await req.json()
     } else {
       const err = await req.text()
@@ -76,9 +76,9 @@ export const executeVote = async ({
       } else if(err.includes('requests')) {
           $alertStore?.show('You have made too many request try again after 24h', 'warning')
       } else if(err.toLocaleLowerCase().includes('unauthorized')) {
-          $alertStore?.show('Seems your auth token is not valid anymore re-login!!', 'error')
+          $alertStore?.show('Seems your auth token has expired re-login!!', 'error')
       } else {
-          $alertStore?.show('Vote not submited due to error try to re-login!', 'error')
+          $alertStore?.show('Rating not submitted due to error try to re-login!', 'error')
       }
       return null
     }
