@@ -1,7 +1,7 @@
 {
     "name": "yup-live-browser-extension",
     "description": "Yup Live Browser Extension",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "type": "module",
     "author": "andrei0x309",
     "license": "MIT",
