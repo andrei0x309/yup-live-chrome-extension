@@ -12,34 +12,25 @@ export interface Vote {
   }
   
 
-  export interface Notification {
+  export interface Notification  {
     _id: string
-    action: string
+    eventType: string
+    count: number
+    senderYupScore: number
+    platform: string
+    meta: {
+        like?: boolean
+        quantity?: number
+        postid?: string
+        url?: string
+        message?: string
+    }
     image: string
-    invoker: {
-      username: string
-      eosname: string
-    }
-    like: boolean
-    post: {
-      postid: string
-      url: string
-      title: string
-      tag: string
-    }
-    EVMRecipient: {
-      handle: string
-      address: string
-      avatar: string
-    }
-    notifications: Notification[]
-    seen: boolean
-    postid: string
-    rating: number
-    recipient: string
-    voter: string
     createdAt: string
-    quantity?: string
+    senders: {
+        _id: string
+        handle: string
+        avatar: string
+    }[]
     message?: string
-    VoterHandle: string
-  }
+}

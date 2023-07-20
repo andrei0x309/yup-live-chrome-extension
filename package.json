@@ -1,39 +1,42 @@
 {
-    "name": "yup-live-browser-extension",
-    "description": "Yup Live Browser Extension",
-    "version": "1.0.7",
-    "type": "module",
-    "author": "andrei0x309",
-    "license": "MIT",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/nekitcorp/chrome-extension-svelte-typescript-boilerplate.git"
-    },
-    "scripts": {
-        "dev": "vite",
-        "inject": "tsc --out src/client/inject.js src/client/inject.ts",
-        "build": "yarn inject && vite build",
-        "upgrade": "yarn-upgrade-all",
-        "check": "svelte-check --tsconfig ./tsconfig.json",
-        "release": "yarn config set version-tag-prefix yup-live-browser-extension@v &&  yarn config set version-git-message 'yup-live-browser-extension@v%s' && yarn version --patch && yarn postversion",
-        "postversion": "git push",
-        "pub": "yarn build && yarn release && ts-node --esm ./scripts/create-release.ts"
-    },
-    "devDependencies": {
-        "@crxjs/vite-plugin": "^1.0.14",
-        "@sveltejs/vite-plugin-svelte": "^2.0.2",
-        "@tsconfig/svelte": "^3.0.0",
-        "@types/chrome": "^0.0.212",
-        "archiver": "^5.3.1",
-        "sass": "^1.58.0",
-        "svelte": "^3.55.1",
-        "svelte-check": "^3.0.3",
-        "svelte-preprocess": "^5.0.1",
-        "svelte-windicss-preprocess": "~4.1.0",
-        "ts-node": "^10.9.1",
-        "tslib": "^2.5.0",
-        "typescript": "^4.9.5",
-        "vite": "^4.1.1",
-        "yarn-upgrade-all": "^0.7.2"
-    }
+  "name": "yup-live-browser-extension",
+  "description": "Yup Live Browser Extension",
+  "version": "1.0.7",
+  "type": "module",
+  "author": "andrei0x309",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nekitcorp/chrome-extension-svelte-typescript-boilerplate.git"
+  },
+  "scripts": {
+    "dev": "vite",
+    "inject": "tsc --out src/client/inject.js src/client/inject.ts",
+    "build": "yarn inject && vite build",
+    "upgrade": "yarn-upgrade-all",
+    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "release": "yarn config set version-tag-prefix yup-live-browser-extension@v &&  yarn config set version-git-message 'yup-live-browser-extension@v%s' && yarn version --patch && yarn postversion",
+    "postversion": "git push",
+    "pub": "yarn build && yarn release && ts-node --esm ./scripts/create-release.ts"
+  },
+  "devDependencies": {
+    "@crxjs/vite-plugin": "^1.0.14",
+    "@sveltejs/vite-plugin-svelte": "^2.4.2",
+    "@tsconfig/svelte": "^3.0.0",
+    "@types/chrome": "^0.0.212",
+    "archiver": "^5.3.1",
+    "sass": "^1.58.0",
+    "svelte": "^3.55.1",
+    "svelte-check": "^3.0.3",
+    "svelte-preprocess": "^5.0.1",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.5.0",
+    "typescript": "^4.9.5",
+    "vite": "^4.1.1",
+    "yarn-upgrade-all": "^0.7.2",
+    "postcss": "^8.4.24",
+    "postcss-load-config": "^4.0.1",
+    "autoprefixer": "^10.4.14",
+    "tailwindcss": "^3.3.2"
+  }
 }

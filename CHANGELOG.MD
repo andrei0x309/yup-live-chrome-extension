@@ -1,6 +1,13 @@
 # Change Log
 
-## [Version 1.0.6]
+## [Version 1.0.8]
+
+- migrated from windicss to tailwindcss
+- migrated to web3-notifications and adapted them
+- changed like component
+- changed injected overlay to support new like component and delete vote
+  
+## [Version 1.0.7]
 
 - fixed background notification
   

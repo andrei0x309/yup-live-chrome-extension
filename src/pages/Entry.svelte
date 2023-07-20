@@ -87,7 +87,7 @@
 .entry {
     display: flex;
     align-items: center;
-    height: 350px;
+    height: 370px;
     width: 250px;
     background-color: #242424;
     color: aliceblue;
@@ -115,7 +115,7 @@
   overflow-x: hidden;
   margin-top: 2.2rem;
   height: 100%;
-  width: 270px;
+  width: 250px;
  }
 
   .headerMenu, .logo {
@@ -131,7 +131,7 @@
   .logo {
     left: 0rem;
     top: -0.8rem;
-    width: 250px;
+    width: 270px;
     box-shadow: inset 3px -3px 6rem 11px #0000005e;
     border-bottom: 1px solid #d3d9df63;
   }

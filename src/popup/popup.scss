@@ -1,3 +1,6 @@
+@tailwind components;
+@tailwind utilities;
+
 ::-webkit-scrollbar{
   height: 7px;
   width: 7px;
@@ -84,6 +87,7 @@ a:hover {
     background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: rainbow-text-simple-animation-rev 0.75s ease forwards;
+    margin-left: 1rem;
   }
   
   .gradient-text:hover {

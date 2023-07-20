@@ -1,9 +1,8 @@
+import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import sveltePreprocess from "svelte-preprocess";
-import { windi } from 'svelte-windicss-preprocess';
-
 
 export default {
-    // Consult https://github.com/sveltejs/svelte-preprocess
-    // for more information about preprocessors
-    preprocess: [windi({}), sveltePreprocess()]
+  // Consult https://github.com/sveltejs/svelte-preprocess
+  // for more information about preprocessors
+  preprocess: [sveltePreprocess(), vitePreprocess({})],
 };

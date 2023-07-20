@@ -16,7 +16,7 @@ let type = null
 
 onMount(async () => {
     notifs = await getNotifications({
-        userId: $mainStore.user.auth.userId,
+        address: $mainStore.user.auth.address.toLowerCase(),
         type,
         skip: '0',
         limit: '15'
@@ -40,7 +40,7 @@ const changeNotifsType = async (t : string[] | null) => {
     type = t
     loading = true;
     notifs = await getNotifications({
-        userId: $mainStore.user.auth.userId,
+        address: $mainStore.user.auth.address.toLowerCase(),
         type: t,
         skip: '0',
         limit: '15'
@@ -57,10 +57,10 @@ const changeNotifsType = async (t : string[] | null) => {
     {#await pastNotifsPromise}
         &nbsp;
     {:then pastNotifs}
-        {#if (pastNotifs.notifs.reverse() ?? []).length > 0}
+        {#if (pastNotifs.notifs ?? []).length > 0}
             {noNotifications = true}
         {:else}
-         {#each pastNotifs.notifs.reverse() as notif}
+         {#each pastNotifs.notifs as notif}
         <Notification {notif} />
          {/each}
         {/if}
@@ -71,7 +71,7 @@ const changeNotifsType = async (t : string[] | null) => {
         <span on:click={() => changeNotifsType(['reward'])} aria-hidden class="text-blue-200 interactive-svg interactive-svg text-blue-200 interactive-svg">Rewards</span>
     </div>
     <div class="flex flex-col">
-        {#each notifs.reverse() as notif}
+        {#each notifs as notif}
             <Notification {notif} />
         {/each}
     </div>

@@ -35,13 +35,13 @@
 
 
 <div class="h-24 leading-6 main-section">
-  <div class="flex">
+  <div class="flex my-2">
     <div on:click={() => extrenalNavigate(`${APP_BASE}/score/${$mainStore.user.auth.address}`)} aria-hidden class="flex flex-col w-16 mt-1 px-2 py-3 mr-4 link">
-      <span class="text-[0.6rem] mb-2">Score</span><span class="text-[0.95rem] mb-2"
+      <span class="text-[0.6rem] mb-1">Score</span><span class="text-[0.95rem] mb-1"
         >{$mainStore?.user?.profile?.yupScore?.toFixed(0)}</span
       ><span class="text-[0.7rem]">100<br />MAX</span>
     </div>
-    <div on:click={() => extrenalNavigate(`${APP_BASE}/profile/${$mainStore.user.auth.userId}`)} aria-hidden class="flex flex-col justify-center mb-2 w-16">
+    <div on:click={() => extrenalNavigate(`${APP_BASE}/profile/${$mainStore.user.auth.userId}`)} aria-hidden class="flex flex-col justify-center mb-1 w-16">
       <ImgLoader source={avatar} bind:this={loader}>
         <img
           style="{ $mainStore.settings.theme === 'light'? 'filter: invert(1);' : '' }"
@@ -83,7 +83,7 @@
       {/if}
     </div>
     <div on:click={() => extrenalNavigate(`${APP_BASE}/raw-influence/${$mainStore.user.auth.userId}`)} aria-hidden class="flex flex-col w-16 mt-1 ml-4 px-2 py-3 link">
-      <span class="text-[0.6rem] mb-2">Influence</span><span class="text-[0.95rem] mb-2"
+      <span class="text-[0.6rem] mb-1">Influence</span><span class="text-[0.95rem] mb-1"
         >{$mainStore?.user?.profile?.yup?.weight}</span
       ><span class="text-[0.7rem]">10<br />MAX</span>
     </div>
@@ -92,7 +92,7 @@
 </div>
 <div class="address text-[0.8rem]">
   <span
-    class="mb-2"
+    class="mb-1"
     >Address: {truncteEVMAddr($mainStore?.user?.auth?.address)}
     <svg on:click={() => copyAddress()} aria-hidden="true" class="w-4 interactive-svg" viewBox="0 0 24 24"
       ><path
@@ -125,6 +125,7 @@
     overflow: hidden;
     margin-left: -2rem;
     margin-bottom: 0.2rem;
+    margin-top: 1.1rem;
   }
 
   .avatar {
@@ -139,6 +140,7 @@
     transition: all 0.4s ease-in-out;
     border-radius: 6px;
     background-color: #00000027;
+    line-height: 1.1rem;
   }
 
   .avatar:hover,
