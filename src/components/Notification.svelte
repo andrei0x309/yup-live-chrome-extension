@@ -9,6 +9,8 @@
 
   let loader;
 
+  const appBase = "https://app.yup.io";
+
   export let notif: Notification;
 </script>
 
@@ -33,7 +35,7 @@
       </p>
       <p class="text-xs text-gray-200 my-0 mt-1">
         <span
-          on:click={() => extrenalNavigate(`https://yup-live.pages.dev/post/${notif.meta.postid}`)}
+          on:click={() => extrenalNavigate(`${appBase}/post/${notif.meta.postid}`)}
           aria-hidden
           class="text-blue-200 interactive-svg">{finalUrl}</span
         >
@@ -105,7 +107,7 @@
       <p
         aria-hidden
         class="text-xs text-gray-200 my-0 mt-1"
-        on:click={() => extrenalNavigate(`https://yup-live.pages.dev/web3-profile/${sender?._id}`)}
+        on:click={() => extrenalNavigate(`${appBase}/account/${sender?._id}`)}
       >
         <b>{sender?.handle || `${sender?._id?.slice(0, 6)}...`}</b>
         followed you.

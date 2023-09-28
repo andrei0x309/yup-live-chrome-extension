@@ -1,10 +1,11 @@
 import { SEND_AUTH_NOTIF, ENABLE_RIGHT_CLICK, DISABLE_RIGHT_CLICK } from '@/constants/messeges';
 import { initStorage } from '@/utils/storage'
-import { getStore, setProfile, setNotifStorageNotifs, setSettings, setNotifStorageLastRewardNotif, getNotifStorageLastRewardNotif } from '@/utils/storage'
+import { getStore, setProfile, setNotifStorageNotifs, setSettings,
+     setNotifStorageLastRewardNotif, getNotifStorageLastRewardNotif, getSetting, setSetting } from '@/utils/storage'
 import type { Notification } from '@/utils/types';
 import { API_BASE } from '@/constants/config';
 import { getNotifications } from '@/utils/notifications';
-import { setBadge } from '@/utils/chrome-misc'
+import { setBadge, extrenalNavigate } from '@/utils/chrome-misc'
 import { closeTo } from '@/utils/time';
 import { getActionUsage } from '@/utils/user';
 import { executeVote, getVotePayload } from '@/utils/votes';
@@ -14,6 +15,27 @@ const yupExtensionId = 'nhmeoaahigiljjdkoagafdccikgojjoi'
 
 console.info('Service worker started')
 
+let notificationUrl: string
+
+const buttons = {
+     buttons: [{
+        title: 'Open in App',
+    }]
+}
+
+const notificationActionListner = async (id: string) => {
+    try {
+        const url = new URL(notificationUrl ?? 'https://app.yup.io/notifications')
+        extrenalNavigate(url.href)
+        chrome.notifications.clear(id)
+    } catch {
+        // ignore
+    }
+}
+
+if (!chrome.notifications.onButtonClicked.hasListener(notificationActionListner)){
+    chrome.notifications.onButtonClicked.addListener(notificationActionListner)
+}
 
 const onRightClickLike = async (store, info, tab) => {
         const vote = await executeVote(getVotePayload({
@@ -74,7 +96,7 @@ const alarmHandler = async () => {
                 type: null,
                 limit: '15',
                 skip: '0',
-                userId: store.user.auth.userId
+                address: store.user.auth.address
             })
         }
         requests.coinGecko = fetch('https://api.coingecko.com/api/v3/simple/price?ids=yup&vs_currencies=usd')
@@ -114,8 +136,8 @@ const alarmHandler = async () => {
                 }
                 setSettings(updateSettings).catch(console.error)
 
-                if (store.settings?.chromeNotifWhenReward && notSeen.some(notif => notif.action === 'reward')) {
-                    const rewardNotif = notSeen.find(notif => notif.action === 'reward')
+                if (store.settings?.chromeNotifWhenReward && notSeen.some(notif => notif.eventType === 'reward')) {
+                    const rewardNotif = notSeen.find(notif => notif.eventType === 'reward')
                     if (rewardNotif) {
                         const storeReward = (await getNotifStorageLastRewardNotif())
 
@@ -128,13 +150,57 @@ const alarmHandler = async () => {
                                     type: 'basic',
                                     iconUrl: chrome.runtime.getURL('src/assets/icons/yup_ext_128.png'),
                                     title: 'Yup Live Extension',
-                                    message: `You have been alocated a future reward of ${rewardNotif.quantity} YUP`,
+                                    message: `You have been alocated a future reward of ${rewardNotif?.meta.quantity ?? "unknown"} YUP`,
                                 })
                             }
                         }
                     }
+                } else if (store.settings?.enableFollowNotif && notSeen.some(notif => notif.eventType === 'follow')) {
+                    const followNotif = notSeen.filter(notif => notif.eventType === 'follow').sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())[0]
+                    const lastFollowNotif = await getSetting('lastfollowNotif') as number
+                    const isNew = !lastFollowNotif || ( !closeTo(new Date(lastFollowNotif), new Date(followNotif.createdAt), 2e4))
+                    if (followNotif && isNew) {
+                        notificationUrl = followNotif?.senders?.[0]._id ? `${API_BASE}/account/${followNotif?.senders?.[0]._id}`: undefined
+                        await chrome.notifications.create({
+                            type: 'basic',
+                            iconUrl: chrome.runtime.getURL('src/assets/icons/yup_ext_128.png'),
+                            title: 'Yup Live Extension',
+                            message: `${followNotif.senders[0].handle} has followed you`,
+                            ...(buttons)
+                        })
+                        await setSetting('lastfollowNotif', new Date(followNotif.createdAt).getTime())
+                    }
+                } else if (store.settings?.enableCommentNotif && notSeen.some(notif => notif.eventType === 'comment')) {
+                    const commentNotif = notSeen.filter(notif => notif.eventType === 'comment').sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())[0]
+                    const lastCommentNotif = await getSetting('lastCommentNotif') as number
+                    const isNew = !lastCommentNotif || ( !closeTo(new Date(lastCommentNotif), new Date(commentNotif.createdAt), 2e4))
+                    if (commentNotif && isNew) {
+                        notificationUrl = commentNotif?.meta?.postid ? `${API_BASE}/post/${commentNotif?.meta?.postid}`: undefined
+                        await chrome.notifications.create({
+                            type: 'basic',
+                            iconUrl: chrome.runtime.getURL('src/assets/icons/yup_ext_128.png'),
+                            title: 'Yup Live Extension',
+                            message: `${commentNotif.senders[0].handle} has commented on your post`,
+                            ...(buttons)
+                        })
+                        await setSetting('lastCommentNotif', new Date(commentNotif.createdAt).getTime())
+                    }
+                } else if (store.settings?.enableMentionNotif && notSeen.some(notif => notif.eventType === 'mention')) {
+                    const mentionNotif = notSeen.filter(notif => notif.eventType === 'mention').sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())[0]
+                    const lastMentionNotif = await getSetting('lastMentionNotif') as number
+                    const isNew = !lastMentionNotif || ( !closeTo(new Date(lastMentionNotif), new Date(mentionNotif.createdAt), 2e4))
+                    if (mentionNotif && isNew) {
+                        notificationUrl = mentionNotif?.meta?.postid ? `${API_BASE}/post/${mentionNotif?.meta?.postid}`: undefined
+                        await chrome.notifications.create({
+                            type: 'basic',
+                            iconUrl: chrome.runtime.getURL('src/assets/icons/yup_ext_128.png'),
+                            title: 'Yup Live Extension',
+                            message: `${mentionNotif.senders[0].handle} has mentioned you`,
+                            ...(buttons)
+                        })
+                        await setSetting('lastMentionNotif', new Date(mentionNotif.createdAt).getTime())
+                    }
                 }
-
                 if (store.settings?.chromeNotifWhenAbleToVote) {
                     await getActionUsage(store?.user?.auth?.userId)
                 }
@@ -187,13 +253,16 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
 chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
     try {
         console.log('Message received', request)
-        if (request.type === SEND_AUTH_NOTIF) {
+        const lastLoginNotifTime = Number(await getSetting('lastLoginNotif'))
+        const moreThanOneDay = (new Date().getTime() - lastLoginNotifTime) > 864e5
+        if (request.type === SEND_AUTH_NOTIF && moreThanOneDay) {
             chrome.notifications.create({
                 type: 'basic',
                 iconUrl: chrome.runtime.getURL('src/assets/icons/yup_ext_128.png'),
                 title: 'Yup Live Extension',
                 message: 'You have been logged in.',
             })
+            setSetting('lastLoginNotif', new Date().getTime())
             sendResponse({ success: true })
         } else if (request.type === ENABLE_RIGHT_CLICK) {
             await enableRightClickVote()

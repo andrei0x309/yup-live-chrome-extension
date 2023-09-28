@@ -33,4 +33,5 @@ export interface Vote {
         avatar: string
     }[]
     message?: string
+    seen: boolean
 }

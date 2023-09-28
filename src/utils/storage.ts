@@ -49,6 +49,13 @@ export const storageDefault = {
         refilNotifTimestamp: 0,
         enableRightClick: false,
         enableRightClickNotif: false,
+        lastLoginNotif: 0,
+        enableCommentNotif: false,
+        enableMentionNotif: false,
+        enableFollowNotif: false,
+        lastfollowNotif: 0,
+        lastCommentNotif: 0,
+        lastMentionNotif: 0,
     }
 }
 
@@ -146,5 +153,16 @@ export const getStore = async () => {
 export const getSettings = async () => {
     const store = await chrome.storage.local.get('store')
     return store ? store.store.settings as StorageType['settings'] : storageDefault.settings as StorageType['settings']
+}
+
+export const getSetting = async (setting: keyof StorageType['settings']) => {
+    const settings = await getSettings()
+    return settings[setting]
+}
+
+export const setSetting = async <K extends keyof StorageType['settings']>(setting: K, value: StorageType['settings'][K]) => {
+    const settings = await getSettings()
+    settings[setting] = value
+    await setSettings(settings)
 }
 

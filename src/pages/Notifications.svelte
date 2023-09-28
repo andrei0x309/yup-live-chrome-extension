@@ -68,7 +68,7 @@ const changeNotifsType = async (t : string[] | null) => {
 {:else}
     <div class="text-[0.75rem] py-1">
         <span on:click={() => changeNotifsType(null)} aria-hidden class="inline-block mr-2 interactive-svg text-blue-200 interactive-svg" >All</span>
-        <span on:click={() => changeNotifsType(['reward'])} aria-hidden class="text-blue-200 interactive-svg interactive-svg text-blue-200 interactive-svg">Rewards</span>
+        <span on:click={() => changeNotifsType(['reward'])} aria-hidden class="text-blue-200 interactive-svg interactive-svg interactive-svg">Rewards</span>
     </div>
     <div class="flex flex-col">
         {#each notifs as notif}

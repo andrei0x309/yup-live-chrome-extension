@@ -36,12 +36,12 @@
 
 <div class="h-24 leading-6 main-section">
   <div class="flex my-2">
-    <div on:click={() => extrenalNavigate(`${APP_BASE}/score/${$mainStore.user.auth.address}`)} aria-hidden class="flex flex-col w-16 mt-1 px-2 py-3 mr-4 link">
+    <div aria-hidden class="flex flex-col w-16 mt-1 px-2 py-3 mr-3 link">
       <span class="text-[0.6rem] mb-1">Score</span><span class="text-[0.95rem] mb-1"
         >{$mainStore?.user?.profile?.yupScore?.toFixed(0)}</span
       ><span class="text-[0.7rem]">100<br />MAX</span>
     </div>
-    <div on:click={() => extrenalNavigate(`${APP_BASE}/profile/${$mainStore.user.auth.userId}`)} aria-hidden class="flex flex-col justify-center mb-1 w-16">
+    <div on:click={() => extrenalNavigate(`${APP_BASE}/account/${$mainStore.user.auth.userId}`)} aria-hidden class="flex flex-col justify-center mb-1 w-16">
       <ImgLoader source={avatar} bind:this={loader}>
         <img
           style="{ $mainStore.settings.theme === 'light'? 'filter: invert(1);' : '' }"
@@ -82,7 +82,7 @@
         <span class="text-[0.6rem] mt-4 -ml-1">{handle.length >= 12 ? handle.slice(0, 10) + "..." : handle}</span>
       {/if}
     </div>
-    <div on:click={() => extrenalNavigate(`${APP_BASE}/raw-influence/${$mainStore.user.auth.userId}`)} aria-hidden class="flex flex-col w-16 mt-1 ml-4 px-2 py-3 link">
+    <div aria-hidden class="flex flex-col w-16 mt-1 ml-3 px-2 py-3 link">
       <span class="text-[0.6rem] mb-1">Influence</span><span class="text-[0.95rem] mb-1"
         >{$mainStore?.user?.profile?.yup?.weight}</span
       ><span class="text-[0.7rem]">10<br />MAX</span>

@@ -138,6 +138,36 @@ onMount(async () => {
             </label>
         </div>
 
+        <div class="switch switch--4 text-[0.8rem] flex flex-col mb-4">
+          <span class="inline-block">Browser notification on follow</span>
+            <label class="switch__label mt-2">
+              <input on:click={() => setSettingsLocal('enableFollowNotif')} type="checkbox" class="switch__input"
+              checked={settings.enableFollowNotif}
+              >
+              <span class="switch__design"></span>
+            </label>
+        </div>
+
+        <div class="switch switch--4 text-[0.8rem] flex flex-col mb-4">
+          <span class="inline-block">Browser notification on mention</span>
+            <label class="switch__label mt-2">
+              <input on:click={() => setSettingsLocal('enableMentionNotif')} type="checkbox" class="switch__input"
+              checked={settings.enableMentionNotif}
+              >
+              <span class="switch__design"></span>
+            </label>
+        </div>
+
+        <div class="switch switch--4 text-[0.8rem] flex flex-col mb-4">
+          <span class="inline-block">Browser notification on comment</span>
+            <label class="switch__label mt-2">
+              <input on:click={() => setSettingsLocal('enableCommentNotif')} type="checkbox" class="switch__input"
+              checked={settings.enableCommentNotif}
+              >
+              <span class="switch__design"></span>
+            </label>
+        </div>
+
     </div>
   </section>
 {:else}

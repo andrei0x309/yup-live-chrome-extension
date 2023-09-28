@@ -1,5 +1,13 @@
 # Change Log
 
+## [Version 1.0.9]
+
+- added: browser notifications(work similar to push notifications) for comment, mention, follow with the ability to open the notification in app
+- changed login to use app.yup.io
+- removed external navigation to yup-live
+- added more settings
+- fixed some service worker issues
+
 ## [Version 1.0.8]
 
 - migrated from windicss to tailwindcss
@@ -13,7 +21,7 @@
   
 ## [Version 1.0.6]
 
-- refactored notifications 
+- refactored notifications
 - added support for aggregated notifications
 - added support for follow notification
 
