@@ -2,13 +2,14 @@
     import { onMount } from 'svelte';
     import PageLoader from '@/components/PageLoader.svelte';
     import { getExtensionVersion, extrenalNavigate } from '@/utils/chrome-misc';
+    import { YUP_APP_BASE } from '@/constants/config';
     
     let loading = true;
     let version = '';
     const extensionSourceLink = 'https://github.com/andrei0x309/yup-live-chrome-extension'
     const yupLiveSourceLink = 'https://github.com/andrei0x309/yup-live'
     const yupLiveLink = 'https://yup-live.pages.dev'
-    const yupAppLink = 'https://app.yup.io'
+    const yupAppLink = YUP_APP_BASE
     const discordLink = 'https://discord.com/invite/HnaTAXK'
     const yupForumLink = 'https://forum.yup.io'
     const yupDocsLink = 'https://docs.yup.io'

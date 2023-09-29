@@ -6,10 +6,10 @@
   import { chromeUrl } from "@/utils/chrome-misc";
   import { extrenalNavigate } from "@/utils/chrome-misc";
   import LikeIcon from '@/components/LikeIcon.svelte';
+  import { YUP_APP_BASE } from "@/constants/config";
+
 
   let loader;
-
-  const appBase = "https://app.yup.io";
 
   export let notif: Notification;
 </script>
@@ -35,7 +35,7 @@
       </p>
       <p class="text-xs text-gray-200 my-0 mt-1">
         <span
-          on:click={() => extrenalNavigate(`${appBase}/post/${notif.meta.postid}`)}
+          on:click={() => extrenalNavigate(`${YUP_APP_BASE}/post/${notif.meta.postid}`)}
           aria-hidden
           class="text-blue-200 interactive-svg">{finalUrl}</span
         >
@@ -73,11 +73,12 @@
   <div class="flex flex-col notifBody">
     {#each notif.senders as sender}
     <div class="flex flex-row items-center">
-    <ImgLoader bind:this={loader} source="{sender?.avatar} ">
+
+    <ImgLoader bind:this={loader} source="{sender?.avatar}" loaded={loader?.loaded ?? false} error={loader?.error ?? false} loading={loader?.loading ?? true}>
       <img
         class="notificationImage"
-        on:load={() => loader.onLoad()}
-        on:error={() => loader.onError()}
+        on:load={() => { loader.loaded = true; loader.loading = false; }}
+        on:error={() => { loader.error = true; loader.loading = false; }}
         style={$mainStore.settings.theme === "light" ? "filter: invert(0.9);" : ""}
         slot="img"
         src={sender.avatar}
@@ -107,7 +108,7 @@
       <p
         aria-hidden
         class="text-xs text-gray-200 my-0 mt-1"
-        on:click={() => extrenalNavigate(`${appBase}/account/${sender?._id}`)}
+        on:click={() => extrenalNavigate(`${YUP_APP_BASE}/account/${sender?._id}`)}
       >
         <b>{sender?.handle || `${sender?._id?.slice(0, 6)}...`}</b>
         followed you.
@@ -151,6 +152,8 @@
     border-radius: 6px;
     margin-left: 0.5rem;
     margin-top: 0.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.233);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.123), rgba(0, 0, 0, 0.123));
   }
 
   .notifBody {

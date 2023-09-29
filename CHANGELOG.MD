@@ -1,5 +1,12 @@
 # Change Log
 
+## [Version 1.1.1]
+
+- changed auth condition
+- refactor image loader for notification images
+- added constant for yup app base url
+- other cleanups
+
 ## [Version 1.0.9]
 
 - added: browser notifications(work similar to push notifications) for comment, mention, follow with the ability to open the notification in app

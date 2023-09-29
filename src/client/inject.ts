@@ -35,8 +35,6 @@ class WebCommunicator {
 const allowRegex = /^((http:|https:))?([/][/])?(www.)?[a-zA-Z\-_0-9]{0,}\.?[a-zA-Z\-_0-9]{0,}(yup.info.gf|yup-live.pages.dev|.yup.io|yup-team.vercel.app|localhost\/|localhost:)(.*)/gm
 const isAllowed = allowRegex.test(window.location.href)
 
-console.log('isAllowed', isAllowed)
-
 if(isAllowed) {
     new WebCommunicator(true)
 } else {

@@ -40,7 +40,9 @@ $: {
     <div class="flex items-center flex-col text-[0.8rem] leading-4 mb-4">
     <div class="mb relative">
     <ImgLoader source={tab?.favIconUrl ?? ''} bind:this={loader}>
-    <img style="{ $mainStore.settings.theme === 'light'? 'filter: invert(0.9);' : '' }" slot="img" on:load={() => loader.onLoad()} on:error={() => loader.onError} 
+    <img style="{ $mainStore.settings.theme === 'light'? 'filter: invert(0.9);' : '' }" slot="img" 
+    on:load={() => loader.onLoad()} 
+    on:error={() => loader.onError} 
     class="w-5 h-5 mt-2 rounded-full wicon" src="{tab?.favIconUrl ?? ''}" alt="favicon" />
     <svg class="w-5 h-5 mt-2 rounded-full wicon" style="{ $mainStore.settings.theme === 'light'? 'filter: invert(0.9);' : '' }" slot="error" viewBox="0 0 512 512"><g><polygon points="40,38.999 40,468.998 215,293.998 270,348.998 360,258.998 470,358.998 470,38.999 " style="fill:#EFF3F6;"/>
         <g><circle cx="150" cy="158.999" r="40" style="fill:#FCD884;"/></g><g><polygon points="470,358.998 470,468.998 385,468.998 385,463.998 270,348.998 360,258.998    " style="fill:#70993F;"/></g><g><polygon points="385,463.998 385,468.998 40,468.998 215,293.998 270,348.998" style="fill:#80AF52;"/></g></g><g/></svg>

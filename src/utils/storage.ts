@@ -68,8 +68,6 @@ export const lastRewardNotifDefault = {
         id: '',
     }
 
-
-
 export type StorageType = typeof storageDefault
 
 export const wipeStorage = async () => {

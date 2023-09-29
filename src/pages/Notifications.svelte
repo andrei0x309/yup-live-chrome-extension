@@ -23,7 +23,6 @@ onMount(async () => {
     })
     pastNotifsPromise = getNotifStorage()
     
-    console.log(notifs);
     loading = false;
     clearNotifications($mainStore).then(
         () => {

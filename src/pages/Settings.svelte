@@ -45,7 +45,6 @@ const setSettingsLocal = async (setting: string, value = '') => {
 
 onMount(async () => {
     settings = $mainStore.settings
-    console.log(settings)
 });
 
 </script>

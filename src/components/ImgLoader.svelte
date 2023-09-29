@@ -3,9 +3,9 @@
 
     export let source
 
-    let loading = true
-    let loaded = false
-    let error = false
+    export let loading = true
+    export let loaded = false
+    export let error = false
     
     export const onLoad = () => {
         loading = false

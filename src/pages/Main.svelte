@@ -2,7 +2,7 @@
   import { extrenalNavigate } from "@/utils/chrome-misc";
   import ImgLoader from "@/components/ImgLoader.svelte";
   import { onMount } from "svelte";
-  import { APP_BASE } from "@/constants/config";
+  import { YUP_APP_BASE } from "@/constants/config";
   import RateWebsite from "@/components/RateWebsite.svelte";
   import { mainStore } from "@/utils/store";
   import { formatNumber, truncteEVMAddr } from "@/utils/misc";
@@ -19,7 +19,6 @@
   };
 
   onMount(async () => {
-    console.log($mainStore);
     if ($mainStore?.user?.profile?.yup?.avatar && !$mainStore?.user?.profile?.yup?.avatar.endsWith(".mp4")) {
       avatar = $mainStore?.user?.profile?.yup?.avatar;
     } else if ($mainStore?.user?.profile?.lens?.avatar && !$mainStore?.user?.profile?.lens?.avatar.endsWith(".mp4")) {
@@ -41,7 +40,7 @@
         >{$mainStore?.user?.profile?.yupScore?.toFixed(0)}</span
       ><span class="text-[0.7rem]">100<br />MAX</span>
     </div>
-    <div on:click={() => extrenalNavigate(`${APP_BASE}/account/${$mainStore.user.auth.userId}`)} aria-hidden class="flex flex-col justify-center mb-1 w-16">
+    <div on:click={() => extrenalNavigate(`${YUP_APP_BASE}/account/${$mainStore.user.auth.userId}`)} aria-hidden class="flex flex-col justify-center mb-1 w-16">
       <ImgLoader source={avatar} bind:this={loader}>
         <img
           style="{ $mainStore.settings.theme === 'light'? 'filter: invert(1);' : '' }"

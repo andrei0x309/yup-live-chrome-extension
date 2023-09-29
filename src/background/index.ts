@@ -9,6 +9,7 @@ import { setBadge, extrenalNavigate } from '@/utils/chrome-misc'
 import { closeTo } from '@/utils/time';
 import { getActionUsage } from '@/utils/user';
 import { executeVote, getVotePayload } from '@/utils/votes';
+import { YUP_APP_BASE } from '@/constants/config';
 
 // Disable conflict with yup extension
 const yupExtensionId = 'nhmeoaahigiljjdkoagafdccikgojjoi'
@@ -25,7 +26,7 @@ const buttons = {
 
 const notificationActionListner = async (id: string) => {
     try {
-        const url = new URL(notificationUrl ?? 'https://app.yup.io/notifications')
+        const url = new URL(notificationUrl ?? `${YUP_APP_BASE}/notifications`)
         extrenalNavigate(url.href)
         chrome.notifications.clear(id)
     } catch {
@@ -124,7 +125,7 @@ const alarmHandler = async () => {
         if (store?.settings.notificationsEnabled) {
             try {
                 const notifications = await requests.notifications as Notification[]
-                const notSeen = notifications.reverse().filter(notif => !notif.seen)
+                const notSeen = notifications.filter(notif => !notif.seen)
                 const updateSettings = {} as Record<string, boolean>
                 if (notSeen.length > 0) {
                     setBadge(String(notSeen.length))
@@ -217,7 +218,7 @@ const alarmHandler = async () => {
 chrome.alarms.create(
     'alarm',
     {
-        periodInMinutes: 1,
+        periodInMinutes: 0.1,
     },
 )
 
@@ -252,7 +253,7 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
             
 chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
     try {
-        console.log('Message received', request)
+        // console.log('Message received', request)
         const lastLoginNotifTime = Number(await getSetting('lastLoginNotif'))
         const moreThanOneDay = (new Date().getTime() - lastLoginNotifTime) > 864e5
         if (request.type === SEND_AUTH_NOTIF && moreThanOneDay) {
