@@ -3,9 +3,8 @@
 
     export let source
 
-    export let loading = true
-    export let loaded = false
-    export let error = false
+     let loading = true
+     let loaded = false
     
     export const onLoad = () => {
         loading = false
@@ -14,18 +13,14 @@
 
     export const onError = () => {
         loading = false
-        error = true
+        source = undefined
     }
 
     $: {
         if(isUrlInvalid(source)) {
-            loading = false
-            error = true
+            source = undefined
         } else {
-            loading = true
-            error = false
         }
-       
     }
     
 </script>
@@ -34,7 +29,7 @@
     {#if loading || loaded}
     <slot name="img">
     </slot>
-    {:else if error}
+    {:else if source === undefined}
     <slot name="error">
     </slot>
     {/if}

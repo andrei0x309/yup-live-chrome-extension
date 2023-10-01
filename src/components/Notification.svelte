@@ -9,9 +9,10 @@
   import { YUP_APP_BASE } from "@/constants/config";
 
 
-  let loader;
-
   export let notif: Notification;
+  const numImages = notif?.senders?.length ?? 0;
+  let loaders: ImgLoader[] = Array(numImages).fill(null);
+
 </script>
 
 {#if notif.eventType === "vote"}
@@ -71,14 +72,13 @@
   </div>
 {:else if ["follow"].includes(notif.eventType)}
   <div class="flex flex-col notifBody">
-    {#each notif.senders as sender}
+    {#each notif.senders as sender, i}
     <div class="flex flex-row items-center">
-
-    <ImgLoader bind:this={loader} source="{sender?.avatar}" loaded={loader?.loaded ?? false} error={loader?.error ?? false} loading={loader?.loading ?? true}>
+    <ImgLoader bind:this={loaders[i]} source="{sender?.avatar}" >
       <img
         class="notificationImage"
-        on:load={() => { loader.loaded = true; loader.loading = false; }}
-        on:error={() => { loader.error = true; loader.loading = false; }}
+        on:load={() => loaders[i]?.onLoad()}
+        on:error={() => loaders[i]?.onError()}
         style={$mainStore.settings.theme === "light" ? "filter: invert(0.9);" : ""}
         slot="img"
         src={sender.avatar}
