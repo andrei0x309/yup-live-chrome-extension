@@ -101,6 +101,7 @@ const alarmHandler = async () => {
             })
         }
         requests.coinGecko = fetch('https://api.coingecko.com/api/v3/simple/price?ids=yup&vs_currencies=usd')
+        requests.coinGecko.catch(console.warn)
 
         try {
             const profile = await requests.profile as Response

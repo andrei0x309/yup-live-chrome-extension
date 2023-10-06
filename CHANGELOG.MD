@@ -1,10 +1,14 @@
 # Change Log
 
+## [Version 1.1.3]
+
+- minor fix to prevent console error log on fetch failure
+
 ## [Version 1.1.2]
 
 - changed service worker open notification to use app.yup.io
 - fixed follow notification with multiple senders
-  
+
 ## [Version 1.1.1]
 
 - changed auth condition
