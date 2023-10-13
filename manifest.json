@@ -1,7 +1,7 @@
 {
     "name": "yup live",
     "description": "Light extension helper for yup social platform.",
-    "version": "1.1.3",
+    "version": "1.1.4",
     "manifest_version": 3,
     "icons": {
         "16": "src/assets/icons/yup_ext_16.png",

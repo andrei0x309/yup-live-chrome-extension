@@ -57,11 +57,11 @@ const changeNotifsType = async (t : string[] | null) => {
         &nbsp;
     {:then pastNotifs}
         {#if (pastNotifs.notifs ?? []).length > 0}
-            {noNotifications = true}
-        {:else}
-         {#each pastNotifs.notifs as notif}
+        {#each pastNotifs.notifs as notif}
         <Notification {notif} />
          {/each}
+        {:else}
+        {(noNotifications = true) && ''}
         {/if}
     {/await}
 {:else}
@@ -76,9 +76,11 @@ const changeNotifsType = async (t : string[] | null) => {
     </div>
 {/if}
 
+{#key noNotifications}
 {#if noNotifications }
 <div class="flex flex-col items-center justify-center h-full">
     <p class="text-2xl font-semibold">No Notifications</p>
     <p class="text-lg">You have no notifications</p>
 </div>
 {/if}
+{/key}

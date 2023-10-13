@@ -1,5 +1,9 @@
 # Change Log
 
+## [Version 1.1.4]
+
+- minor fix edge case of no notifications
+
 ## [Version 1.1.3]
 
 - minor fix to prevent console error log on fetch failure
