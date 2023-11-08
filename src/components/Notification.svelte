@@ -16,7 +16,7 @@
 </script>
 
 {#if notif.eventType === "vote"}
-  {@const url = notif.meta.url}
+  {@const url = notif?.meta?.url ?? ''}
   {@const length = url.length}
   {@const shortUrl = url.slice(0, 10) + "..." + url.slice(length - 10, length)}
   {@const finalUrl = length > 24 ? shortUrl : url}
@@ -27,11 +27,11 @@
         by
         {#if notif?.senders?.length > 1}
             {notif?.senders[0].handle}
-            {#if notif.senders.length - 1 > 0}
+            {#if notif.senders?.length - 1 > 0}
             <span class="opacity-60"> and {notif.senders.length - 1} more</span>
             {/if}
         {:else}
-          {notif.senders[0].handle.length > 12 ? notif.senders[0].handle.slice(0, 12) + "..." : notif.senders[0].handle}
+          {notif.senders[0].handle?.length > 12 ? notif.senders[0]?.handle?.slice(0, 12) + "..." : notif.senders[0]?.handle ?? ''}
         {/if}
       </p>
       <p class="text-xs text-gray-200 my-0 mt-1">

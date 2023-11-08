@@ -51,7 +51,7 @@ const changeNotifsType = async (t : string[] | null) => {
 
 {#if loading}
     <PageLoader />
-{:else if notifs.length === 0}
+{:else if (notifs ?? []).length === 0}
 
     {#await pastNotifsPromise}
         &nbsp;
