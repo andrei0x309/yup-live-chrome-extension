@@ -110,14 +110,15 @@ const alarmHandler = async () => {
         } catch (error) {
             console.error('Error fetching profile', error)
         }
+        const fiveHours = 18e5
+        const isExpiredCoinGecko = store?.settings?.coinGeckoPrice && (new Date().getTime() - store.settings.lastCoinGeckoPriceCheckTimestamp) > fiveHours
 
         try {
             const coinGecko = await requests.coinGecko as Response
             const coinGeckoJson = await coinGecko.json()
             const coinGeckoPrice = coinGeckoJson.yup.usd
-            const store = await getStore()
             if (store.settings.coinGeckoPrice !== coinGeckoPrice) {
-                await chrome.storage.local.set({ store: { ...store, settings: { ...store.settings, coinGeckoPrice } } })
+                await chrome.storage.local.set({ store: { ...store, settings: { ...store.settings, coinGeckoPrice, lastCoinGeckoPriceCheckTimestamp: new Date().getTime() } } })
             }
         } catch (error) {
             console.error('Error fetching coinGecko', error)

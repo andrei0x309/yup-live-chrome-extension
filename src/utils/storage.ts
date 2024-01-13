@@ -44,6 +44,7 @@ export const storageDefault = {
         injectEmbed: false,
         chromeNotifWhenReward: false,
         chromeNotifWhenAbleToVote: false,
+        lastCoinGeckoPriceCheckTimestamp: 0,
         coinGeckoPrice: 0,
         hasNewNotifications: false,
         refilNotifTimestamp: 0,
@@ -55,7 +56,7 @@ export const storageDefault = {
         enableFollowNotif: false,
         lastfollowNotif: 0,
         lastCommentNotif: 0,
-        lastMentionNotif: 0,
+        lastMentionNotif: 0
     }
 }
 

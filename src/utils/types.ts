@@ -24,6 +24,7 @@ export interface Vote {
         postid?: string
         url?: string
         message?: string
+        commentId?: string
     }
     image: string
     createdAt: string

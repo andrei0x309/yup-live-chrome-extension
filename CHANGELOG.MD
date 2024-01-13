@@ -1,5 +1,10 @@
 # Change Log
 
+## [Version 1.1.5]
+
+- improved notification handling and display
+- lowerd coinGecko api calls due to recent changes in free tier limit
+
 ## [Version 1.1.4]
 
 - minor fix edge case of no notifications
