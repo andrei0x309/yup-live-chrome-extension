@@ -17,8 +17,9 @@
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "release": "yarn config set version-tag-prefix yup-live-browser-extension@v &&  yarn config set version-git-message 'yup-live-browser-extension@v%s' && yarn version --patch && yarn postversion",
     "postversion": "git push",
-    "pub": "yarn build && yarn release && ts-node --esm ./scripts/create-release.ts"
-  },
+    "create-release": "tsx ./scripts/create-release.ts",
+    "pub": "yarn build && yarn release && yarn create-release"
+ },
   "devDependencies": {
     "@crxjs/vite-plugin": "^1.0.14",
     "@sveltejs/vite-plugin-svelte": "^2.4.2",
@@ -35,6 +36,7 @@
     "tailwindcss": "^3.3.2",
     "ts-node": "^10.9.1",
     "tslib": "^2.5.0",
+    "tsx": "^4.7.0",
     "typescript": "^4.9.5",
     "vite": "^4.1.1",
     "yarn-upgrade-all": "^0.7.2"
