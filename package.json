@@ -1,7 +1,7 @@
 {
   "name": "yup-live-browser-extension",
   "description": "Yup Live Browser Extension",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "type": "module",
   "author": "andrei0x309",
   "license": "MIT",
@@ -19,7 +19,7 @@
     "postversion": "git push",
     "create-release": "tsx ./scripts/create-release.ts",
     "pub": "yarn build && yarn release && yarn create-release"
- },
+  },
   "devDependencies": {
     "@crxjs/vite-plugin": "^1.0.14",
     "@sveltejs/vite-plugin-svelte": "^2.4.2",
