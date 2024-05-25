@@ -6,7 +6,7 @@
     import { navigate } from '@/utils/router'
     import { mainStore } from '@/utils/store'
     // https://yup-live.pages.dev
-    import { YUP_APP_BASE } from '@/constants/config'
+    import { YUP_LIVE_BASE } from '@/constants/config'
     import Alert from '@/components/Alert.svelte'
     import { alertStore } from '@/utils/store'
     import PageLoader from "@/components/PageLoader.svelte";
@@ -45,7 +45,7 @@
 
 <div class="entry" style="{ $mainStore.settings.theme === 'light'? 'filter: invert(1);' : '' }">
  
-    <a href="#app" on:click="{() => extrenalNavigate(YUP_APP_BASE)}">
+    <a href="#app" on:click="{() => extrenalNavigate(YUP_LIVE_BASE)}">
     <h1 aria-label="logo" class="logo inline-flex items-center text-[1.6rem] font-bold gap-2.5 pl-8">
     <span class="gradient-text" style="{ $mainStore.settings.theme === 'light'? 'filter: invert(1.1);' : '' }" >YUP</span>
     </h1>

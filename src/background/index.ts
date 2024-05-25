@@ -9,7 +9,7 @@ import { setBadge, extrenalNavigate } from '@/utils/chrome-misc'
 import { closeTo } from '@/utils/time';
 import { getActionUsage } from '@/utils/user';
 import { executeVote, getVotePayload } from '@/utils/votes';
-import { YUP_APP_BASE } from '@/constants/config';
+import { YUP_LIVE_BASE } from '@/constants/config';
 
 // Disable conflict with yup extension
 const yupExtensionId = 'nhmeoaahigiljjdkoagafdccikgojjoi'
@@ -26,7 +26,7 @@ const buttons = {
 
 const notificationActionListner = async (id: string) => {
     try {
-        const url = new URL(notificationUrl ?? `${YUP_APP_BASE}/notifications`)
+        const url = new URL(notificationUrl ?? `${YUP_LIVE_BASE}/notifications`)
         extrenalNavigate(url.href)
         chrome.notifications.clear(id)
     } catch {
@@ -163,7 +163,7 @@ const alarmHandler = async () => {
                     const lastFollowNotif = await getSetting('lastfollowNotif') as number
                     const isNew = !lastFollowNotif || ( !closeTo(new Date(lastFollowNotif), new Date(followNotif.createdAt), 2e4))
                     if (followNotif && isNew) {
-                        notificationUrl = followNotif?.senders?.[0]._id ? `${YUP_APP_BASE}/account/${followNotif?.senders?.[0]._id}`: undefined
+                        notificationUrl = followNotif?.senders?.[0]._id ? `${YUP_LIVE_BASE}/web3-profile/${followNotif?.senders?.[0]._id}`: undefined
                         await chrome.notifications.create({
                             type: 'basic',
                             iconUrl: chrome.runtime.getURL('src/assets/icons/yup_ext_128.png'),
@@ -178,7 +178,7 @@ const alarmHandler = async () => {
                     const lastCommentNotif = await getSetting('lastCommentNotif') as number
                     const isNew = !lastCommentNotif || ( !closeTo(new Date(lastCommentNotif), new Date(commentNotif.createdAt), 2e4))
                     if (commentNotif && isNew) {
-                        notificationUrl = commentNotif?.meta?.postid ? `${YUP_APP_BASE}/post/${commentNotif?.meta?.postid}`: undefined
+                        notificationUrl = commentNotif?.meta?.postid ? `${YUP_LIVE_BASE}/post/${commentNotif?.meta?.postid}`: undefined
                         await chrome.notifications.create({
                             type: 'basic',
                             iconUrl: chrome.runtime.getURL('src/assets/icons/yup_ext_128.png'),
@@ -193,7 +193,7 @@ const alarmHandler = async () => {
                     const lastMentionNotif = await getSetting('lastMentionNotif') as number
                     const isNew = !lastMentionNotif || ( !closeTo(new Date(lastMentionNotif), new Date(mentionNotif.createdAt), 2e4))
                     if (mentionNotif && isNew) {
-                        notificationUrl = mentionNotif?.meta?.postid ? `${YUP_APP_BASE}/post/${mentionNotif?.meta?.postid}`: undefined
+                        notificationUrl = mentionNotif?.meta?.postid ? `${YUP_LIVE_BASE}/post/${mentionNotif?.meta?.postid}`: undefined
                         await chrome.notifications.create({
                             type: 'basic',
                             iconUrl: chrome.runtime.getURL('src/assets/icons/yup_ext_128.png'),

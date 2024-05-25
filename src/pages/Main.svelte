@@ -2,7 +2,7 @@
   import { extrenalNavigate } from "@/utils/chrome-misc";
   import ImgLoader from "@/components/ImgLoader.svelte";
   import { onMount } from "svelte";
-  import { YUP_APP_BASE } from "@/constants/config";
+  import { YUP_LIVE_BASE } from "@/constants/config";
   import RateWebsite from "@/components/RateWebsite.svelte";
   import { mainStore } from "@/utils/store";
   import { formatNumber, truncteEVMAddr } from "@/utils/misc";
@@ -40,7 +40,7 @@
         >{$mainStore?.user?.profile?.yupScore?.toFixed(0)}</span
       ><span class="text-[0.7rem]">100<br />MAX</span>
     </div>
-    <div on:click={() => extrenalNavigate(`${YUP_APP_BASE}/account/${$mainStore.user.auth.userId}`)} aria-hidden class="flex flex-col justify-center mb-1 w-16">
+    <div on:click={() => extrenalNavigate(`${YUP_LIVE_BASE}/profile/${$mainStore.user.auth.userId}`)} aria-hidden class="flex flex-col justify-center mb-1 w-16">
       <ImgLoader source={avatar} bind:this={loader}>
         <img
           style="{ $mainStore.settings.theme === 'light'? 'filter: invert(1);' : '' }"

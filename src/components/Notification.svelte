@@ -6,7 +6,7 @@
   import { chromeUrl } from "@/utils/chrome-misc";
   import { extrenalNavigate } from "@/utils/chrome-misc";
   import LikeIcon from '@/components/LikeIcon.svelte';
-  import { YUP_APP_BASE } from "@/constants/config";
+  import { YUP_LIVE_BASE } from "@/constants/config";
 
 
   export let notif: Notification;
@@ -38,7 +38,7 @@
       </p>
       <p class="text-xs text-gray-200 my-0 mt-1 cursor-pointer">
         <span
-          on:click={() => extrenalNavigate(`${YUP_APP_BASE}/post/${notif.meta.postid}`)}
+          on:click={() => extrenalNavigate(`${YUP_LIVE_BASE}/post/${notif.meta.postid}`)}
           aria-hidden
           class="text-blue-200 interactive-svg">view the post</span
         >
@@ -110,7 +110,7 @@
       <p
         aria-hidden
         class="text-xs text-gray-200 my-0 mt-1"
-        on:click={() => extrenalNavigate(`${YUP_APP_BASE}/account/${sender?._id}`)}
+        on:click={() => extrenalNavigate(`${YUP_LIVE_BASE}/web3-profile/${sender?._id}`)}
       >
         <b>{sender?.handle || `${sender?._id?.slice(0, 6)}...`}</b>
         followed you.
@@ -166,7 +166,7 @@
     <p
       aria-hidden
       class="text-xs text-gray-200 my-0 mt-1 cursor-pointer"
-      on:click={() => extrenalNavigate(`${YUP_APP_BASE}/post/${notif?.meta?.commentId}`)}
+      on:click={() => extrenalNavigate(`${YUP_LIVE_BASE}/post/${notif?.meta?.commentId}`)}
     >
       <b>{sender?.handle || `${sender?._id?.slice(0, 6)}...`}</b>
       commented on yout post, click to view.

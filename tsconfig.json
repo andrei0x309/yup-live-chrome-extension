@@ -15,6 +15,7 @@
         "allowJs": true,
         "checkJs": true,
         "isolatedModules": false,
+        "ignoreDeprecations": "5.0",
         "paths": {
             "@/*": ["./src/*", "./dist/*"]
           }

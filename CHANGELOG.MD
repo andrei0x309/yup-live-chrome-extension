@@ -1,5 +1,9 @@
 # Change Log
 
+## [Version 1.1.6]
+
+- changed login and baseURL to use yup live because app.yup.live is not working with extension
+
 ## [Version 1.1.5]
 
 - improved notification handling and display
